@@ -1,0 +1,15 @@
+{{ allTasks | json }}
+<br>
+<br>
+<h1>Restfull Tasks API</h1>
+<br>
+<h3>All the Tasks</h3>
+<span *ngFor="let idx of allTasks['t'] | keyvalue">
+  {{idx.value['title']}}
+  <br>
+  Key: <b>{{idx.key}}</b> and Value: <b>{{idx.value['title'] | json}}</b>
+</span>
+
+<h3>The Third Task</h3>
+<h3 >{{task | json}}</h3>
+<router-outlet></router-outlet>
