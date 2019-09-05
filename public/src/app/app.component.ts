@@ -13,7 +13,7 @@ implements OnInit
 {
   newTask: any;
   allTasks : any;
-  task: any;
+  oneTask: any;
   editTask : any;
   deleteTask: any;
 
@@ -22,23 +22,20 @@ implements OnInit
 
 //RUN ON INTILIZATION
   ngOnInit() {
-      this.getTasksFromService();
-      this.getOneTaskFromService(3);
       // this.newTask = { title: "", description: ""}
-      // this.editTask = { title: "", description: ""}
-  
+      // this.editTask = { title: "", description: ""}  
     }
   getTasksFromService(){
     console.log("*************get hit*************");
     let tempObservable = this._httpService.getTasks();
-    console.log(`*********${tempObservable}************`);
+    console.log(`*********${JSON.stringify(tempObservable)}************`);
     tempObservable.subscribe(data => this.allTasks = data);
     console.log(`*********${this.allTasks}************`);
   }
   postTaskToService(){
     console.log("*************post hit*************");
     let tempObservable = this._httpService.makeTasks(this.newTask);
-    console.log(`*********${tempObservable}************`);
+    console.log(`*********${JSON.stringify(tempObservable)}************`);
     tempObservable.subscribe(data => this.newTask = data)
   }
   deleteTaskFromService(task_id){
@@ -51,10 +48,10 @@ implements OnInit
   }
   getOneTaskFromService(idx){
     console.log("*************get one hit*************");
-    let tempObservable = this.allTasks['t'][idx];
-    console.log(`*********${tempObservable}************`);
-    tempObservable.subscribe(data => this.task = data);
+    let the = this.allTasks['t'][idx]._id;
+    console.log(`*********${JSON.stringify(the)}************`);
+    let tempObservable = this._httpService.getOneTask(the)
+    console.log(`*********${JSON.stringify(tempObservable)}************`);
+    tempObservable.subscribe(data => this.oneTask = data);
   }
-
-
 }

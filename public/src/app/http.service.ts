@@ -25,6 +25,6 @@ export class HttpService {
       return this._http.put(`/tasks/${id}`, changes);
     }
     getOneTask(id){
-      return this._http.delete(`/tasks/${id}`);
+      return this._http.get(`/tasks/${id}`);
       }
 }
