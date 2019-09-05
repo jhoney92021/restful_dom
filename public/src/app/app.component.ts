@@ -22,8 +22,8 @@ implements OnInit
 
 //RUN ON INTILIZATION
   ngOnInit() {
-      // this.newTask = { title: "", description: ""}
-      // this.editTask = { title: "", description: ""}  
+      this.newTask = { title: "", description: ""}
+      this.editTask = { title: "", description: ""}  
     }
   getTasksFromService(){
     console.log("*************get hit*************");
@@ -38,19 +38,28 @@ implements OnInit
     console.log(`*********${JSON.stringify(tempObservable)}************`);
     tempObservable.subscribe(data => this.newTask = data)
   }
-  deleteTaskFromService(task_id){
+  deleteTaskFromService(idx){
+    console.log("*************delete one hit*************");
+    let task_id = this.allTasks['t'][idx]._id;
+    console.log(`*********${JSON.stringify(task_id)}************`);
     let tempObservable = this._httpService.deleteTask(task_id);
-    tempObservable.subscribe(data => console.log("Deleted a task!", data));
+    console.log(`*********${JSON.stringify(tempObservable)}************`);
+    tempObservable.subscribe(data => this.deleteTask = data);
   }
-  editTaskInService(task_id, changes){
-    let tempObservable = this._httpService.editTask(task_id, changes);
-    tempObservable.subscribe(data => console.log("Edited a task!", data));
+  editTaskInService(task_id){
+    console.log("*************edit one hit*************");
+    // let task_id = this.allTasks['t'][idx]._id;
+    console.log(`*********${JSON.stringify(task_id)}************`);
+    console.log(`*********${JSON.stringify(this.editTask)}************`);
+    let tempObservable = this._httpService.editTask(task_id, this.editTask);
+    console.log(`*********${JSON.stringify(tempObservable)}************`);
+    tempObservable.subscribe(data => this.editTask = data);
   }
   getOneTaskFromService(idx){
     console.log("*************get one hit*************");
-    let the = this.allTasks['t'][idx]._id;
-    console.log(`*********${JSON.stringify(the)}************`);
-    let tempObservable = this._httpService.getOneTask(the)
+    let task_id = this.allTasks['t'][idx]._id;
+    console.log(`*********${JSON.stringify(task_id)}************`);
+    let tempObservable = this._httpService.getOneTask(task_id)
     console.log(`*********${JSON.stringify(tempObservable)}************`);
     tempObservable.subscribe(data => this.oneTask = data);
   }

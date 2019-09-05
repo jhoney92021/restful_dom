@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
 //FOR SERVICE TO CLIENT
+//FOR FORM MODEL USE
+import { FormsModule } from '@angular/forms';
+//FOR FORM MODEL USE
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     //add for client
-    HttpClientModule
+    HttpClientModule,
+    //add for forms
+    FormsModule
   ],
   providers: [/*add for service*/HttpService],
   bootstrap: [AppComponent]

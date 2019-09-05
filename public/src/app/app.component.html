@@ -1,5 +1,15 @@
 <!-- {{ allTasks | json }}
-{{oneTask | json}} -->
+  {{oneTask | json}} -->
+    <form (submit)="postTaskToService()">
+      <!-- use the json pipe to see how newTask changes in real time -->
+      <p> {{ newTask | json }} </p>
+      <input type="text" name="newTask.title" [(ngModel)]="newTask.title" placeholder="title">
+      <br>
+      <br>
+      <input type="text" name="newTask.description" [(ngModel)]="newTask.description" placeholder="description">
+      <br>
+      <input type="submit" value="Create Task">
+    </form>
 <br>
 <br>
 <h1>Restfull Tasks API</h1>
@@ -15,18 +25,35 @@
     </td>
     <td>
       <b>{{idx.value['title']}}</b>
-      <button (click)="getOneTaskFromService(idx.key)">SHOW</button>
+      <button (click)="getOneTaskFromService(idx.key)">SHOW</button>|||
+      <button (click)="deleteTaskFromService(idx.key)">DELETE</button>|||
     </td>
   </tr>
   <br>
 </table><!--Table for all Tasks-->
 <table class="table"><!--Table for oneTask Description-->
-  <h2>{{oneTask.t.description}}</h2>  
-  <br>
+  <tr>
+    <td>
+      <h2>{{oneTask.t.description}}</h2>  
+      <h2>{{oneTask.t.completed}}</h2>  
+    </td>
+  </tr>
+  <tr *ngIf="oneTask">
+    <td>
+      <form (submit)="editTaskInService(oneTask.t._id)">
+        <!-- use the json pipe to see how editTask changes in real time -->
+        <p> {{ editTask | json }} </p>
+        <input type="text" name="editTask.title" [(ngModel)]="editTask.title" placeholder="title">
+        <br>
+        <br>
+        <input type="text" name="editTask.description" [(ngModel)]="editTask.description" placeholder="description">
+        <br>
+        <input type="submit" value="Edit Task">
+      </form>
+    </td>
+  </tr>
 </table><!--Table for oneTask Description-->
-<form action="">
 
-</form>
 
 
 
