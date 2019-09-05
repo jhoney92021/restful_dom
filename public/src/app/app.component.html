@@ -1,5 +1,7 @@
 <!-- {{ allTasks | json }}
   {{oneTask | json}} -->
+  <div style="outline: 2px solid green"><!-- parent component -->
+
     <form (submit)="postTaskToService()">
       <!-- use the json pipe to see how newTask changes in real time -->
       <p> {{ newTask | json }} </p>
@@ -10,51 +12,55 @@
       <br>
       <input type="submit" value="Create Task">
     </form>
-<br>
-<br>
-<h1>Restfull Tasks API</h1>
-<br>
-<button (click)="getTasksFromService()">Show all Tasks!</button>
-<br>
-<h3>All the Tasks</h3>
-<table *ngFor="let idx of allTasks['t'] | keyvalue" class="table"><!--Table for all Tasks-->
-  <br>
-  <tr>
-    <td>
-      Key: <b>{{idx.key}}</b> and Value:
-    </td>
-    <td>
-      <b>{{idx.value['title']}}</b>
-      <button (click)="getOneTaskFromService(idx.key)">SHOW</button>|||
-      <button (click)="deleteTaskFromService(idx.key)">DELETE</button>|||
-    </td>
-  </tr>
-  <br>
-</table><!--Table for all Tasks-->
-<table class="table"><!--Table for oneTask Description-->
-  <tr>
-    <td>
-      <h2>{{oneTask.t.description}}</h2>  
-      <h2>{{oneTask.t.completed}}</h2>  
-    </td>
-  </tr>
-  <tr *ngIf="oneTask">
-    <td>
-      <form (submit)="editTaskInService(oneTask.t._id)">
-        <!-- use the json pipe to see how editTask changes in real time -->
-        <p> {{ editTask | json }} </p>
-        <input type="text" name="editTask.title" [(ngModel)]="editTask.title" placeholder="title">
-        <br>
-        <br>
-        <input type="text" name="editTask.description" [(ngModel)]="editTask.description" placeholder="description">
-        <br>
-        <input type="submit" value="Edit Task">
-      </form>
-    </td>
-  </tr>
-</table><!--Table for oneTask Description-->
+    <br>
+    <br>
+    <h1>Restfull Tasks API</h1>
+    <br>
+    <button (click)="getTasksFromService()">Show all Tasks!</button>
+    <br>
+    <h3>All the Tasks</h3>
+    <table *ngFor="let idx of allTasks['t'] | keyvalue" class="table"><!--Table for all Tasks-->
+      <br>
+      <tr>
+        <!-- <td>
+          Key: <b>{{idx.key}}</b> and Value:
+        </td> -->
+        <td>
+          <b>{{idx.value['title']}}</b>
+          <button (click)="getOneTaskFromService(idx.key)">SHOW</button>|||
+          <button (click)="deleteTaskFromService(idx.key)">DELETE</button>         
+        </td>
+      </tr>
+      <br>
+    </table><!--Table for all Tasks-->
+    <table class="table"><!--Table for oneTask Description-->
+      <tr>
+        <td>
+          <h2>{{oneTask.t.description}}</h2>    
+          <div><!--task component-->
+            <app-task *ngIf="oneTask" [oneTaskChild]="oneTask"></app-task> 
+          </div><!--task component-->       
+        </td>
+      </tr>
+      <tr *ngIf="oneTask">
+        <td>
+          <form (submit)="editTaskInService(oneTask.t._id)">
+            <!-- use the json pipe to see how editTask changes in real time -->
+            <p> {{ editTask | json }} </p>
+            <input type="text" name="editTask.title" [(ngModel)]="editTask.title" placeholder="title">
+            <br>
+            <br>
+            <input type="text" name="editTask.description" [(ngModel)]="editTask.description" placeholder="description">
+            <br>
+            <input type="submit" value="Edit Task">
+          </form>
+        </td>
+      </tr>
+    </table><!--Table for oneTask Description-->
 
-
-
-
-<router-outlet></router-outlet>
+  </div><!-- parent component -->
+    
+    
+    
+    
+    <router-outlet></router-outlet>

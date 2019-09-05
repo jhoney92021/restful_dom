@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 //FOR SERVICE TO CLIENT
 //FOR FORM MODEL USE
 import { FormsModule } from '@angular/forms';
+import { TaskComponent } from './task/task.component';
 //FOR FORM MODEL USE
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
